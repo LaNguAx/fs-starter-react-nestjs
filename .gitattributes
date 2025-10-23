@@ -1,1 +1,28 @@
+# Auto-normalize text files to LF line endings
 * text=auto eol=lf
+
+# Treat all files as UTF-8 text
+*.ts  text eol=lf
+*.tsx text eol=lf
+*.js  text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+
+# Mark binary files to avoid line ending conversion
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+
+# Keep shell/batch scripts consistent
+*.sh text eol=lf
+*.bat text eol=crlf

@@ -1,3 +1,3 @@
 export default function Header() {
-  return <h1>This is the Header content</h1>
+  return <h1 className="bg-red-500">This is the Header content</h1>;
 }

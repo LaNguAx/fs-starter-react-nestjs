@@ -15,8 +15,10 @@
     "components": "@/ui/shadcnComponents",
     "utils": "@/lib/shadcnUtils/utils",
     "ui": "@/ui/shadcnComponents",
-    "lib": "@/lib/shadcnLib",
+    "lib": "@/lib/shadcnUtils",
     "hooks": "@/hooks/shadcnHooks"
   },
-  "registries": {}
+  "registries": {
+    "@animate-ui": "https://animate-ui.com/r/{name}.json"
+  }
 }

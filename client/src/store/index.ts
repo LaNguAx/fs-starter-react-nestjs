@@ -1,8 +1,15 @@
+import { boardsApi } from '@/store/apis/boardsApi';
+import { categoriesApi } from '@/store/apis/categoriesApi';
+import appReducer from '@/store/slices/appSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import todosReducer from '@/store/slices/todosSlice';
 
 export const store = configureStore({
-  reducer: { todos: todosReducer },
+  reducer: {
+    appState: appReducer,
+    [boardsApi.reducerPath]: boardsApi.reducer,
+    [categoriesApi.reducerPath]: categoriesApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(boardsApi.middleware, categoriesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

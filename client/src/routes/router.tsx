@@ -1,28 +1,50 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, type Params } from 'react-router';
 import Root from '@/ui/Root';
 import NotFound from '@/ui/components/NotFound';
-import { ErrorBoundary } from '@/ui/components/Error';
-
-const localStorage = {
-  defaultUser: {
-    name: 'Itay Aknin',
-    defaultSheet: {
-      title: 'Sheet #1',
-      description: 'My First Sheet',
-      slug: 'sheet#1',
-    },
-  },
-};
+import BoardGuard from '@/ui/features/boardSwitcher/BoardGuard';
+import CategoryGuard from '@/ui/features/categories/CategoryGuard';
+import Category from '@/ui/pages/Category';
+import SubCategory from '@/ui/pages/SubCategory';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    errorElement: <ErrorBoundary />,
     Component: Root,
+    children: [
+      {
+        path: ':board',
+        Component: BoardGuard,
+        handle: {
+          breadcrumb: ({ params }: { params: Params }) => params.board ?? '/',
+        },
+        children: [
+          {
+            path: ':category',
+            Component: CategoryGuard,
+            handle: {
+              breadcrumb: ({ params }: { params: Params }) => params.category ?? 'Category',
+            },
+            children: [
+              {
+                index: true,
+                Component: Category,
+              },
+              {
+                path: ':subCategory',
+                Component: SubCategory,
+                handle: {
+                  breadcrumb: ({ params }: { params: Params }) => params.subCategory ?? 'Subcategory',
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     path: '*',
     Component: NotFound,
-    handle: { breadcrumb: 'Not Found' },
+    handle: { breadcrumb: () => 'Not Found' },
   },
 ]);
